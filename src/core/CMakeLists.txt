@@ -1,4 +1,4 @@
-find_package(spdlog REQUIRED)
+# find_package(spdlog REQUIRED)
 
 if (ENABLE_VULKAN)
 find_package(Vulkan REQUIRED)
@@ -23,7 +23,7 @@ set(RR_SOURCES
     src/utils/warning_pop.h
     src/utils/warning_push.h)
 
-source_group(base FILES ${RR_SOURCES})
+source_group(base FILES ${RR_SOURCES} ${SPDLOG_INCLUDE_DIRS})
 
 # DX12 specific sources
 if (ENABLE_DX12)
@@ -192,7 +192,7 @@ target_include_directories(radeonrays
 
 target_compile_definitions(radeonrays PRIVATE RR_EXPORT_API)
 
-target_link_libraries(radeonrays PRIVATE project_options project_warnings spdlog::spdlog)
+target_link_libraries(radeonrays PRIVATE project_options project_warnings ${SPDLOG_LIBRARIES})
 if (EMBEDDED_KERNELS)
     target_compile_definitions(radeonrays PRIVATE RR_EMBEDDED_KERNELS)
 endif(EMBEDDED_KERNELS)
